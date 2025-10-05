@@ -1,0 +1,150 @@
+  - Fondations et rappels
+    - Rappel des bases du langage
+      - Syntaxe
+      - Classes
+      - Objets
+      - Interfaces
+      - Héritage
+      - Polymorphisme
+      - Encapsulation
+      - Surcharge et redéfinition
+      - Portée des variables
+      - Principes SOLID
+      - Principe DRY
+      - Principe KISS
+      - Exercice : refactoriser une classe selon les principes SOLID
+    - APIs standards
+      - List
+      - Set
+      - Map
+      - Queue
+      - Stack
+      - API I/O (Input/Output)
+      - API NIO et NIO.2
+      - Sérialisation d’objets
+      - Désérialisation d’objets
+      - Classe Optional
+      - Gestion d’exceptions
+      - try-with-resources
+      - Exercice : lecture et écriture de fichiers avec gestion d’erreurs
+    - Programmation fonctionnelle (Java 8)
+      - Lambda expressions
+      - Références de méthode
+      - Interfaces fonctionnelles (Function, Predicate, Supplier, Consumer)
+      - Stream API
+      - Opérateurs map, filter, reduce
+      - Collectors
+      - API Date & Time (`LocalDate`, `LocalTime`, `ZonedDateTime`)
+      - Exercice : pipeline de transformation de données avec Streams
+  - Évolution du langage (Java 8 → 21)
+    - De Java 8 à Java 12
+      - Modularité avec Project Jigsaw (Java 9)
+      - Inférence de type local (var, Java 10)
+      - Switch expressions (Java 12)
+      - Garbage Collector G1
+      - Garbage Collector ZGC
+      - Exercice : créer un mini-module Java avec dépendances internes
+    - De Java 13 à Java 17
+      - Text Blocks (`"""`)
+      - Records
+      - Pattern Matching pour `instanceof`
+      - Pattern Matching pour `switch`
+      - Classes scellées (sealed, non-sealed, permits)
+      - Exercice : refactoriser une hiérarchie avec records et sealed classes
+    - De Java 18 à Java 21
+      - Virtual Threads (Project Loom)
+      - Structured Concurrency
+      - Scoped Values
+      - Record Patterns
+      - Guarded Patterns
+      - Foreign Function & Memory API
+      - Exercice : implémenter un service utilisant des virtual threads
+  - Programmation Java avancée
+    - Généricité et collections
+      - Types génériques bornés (`extends`, `super`)
+      - Wildcards
+      - Comparable
+      - Comparator
+      - Tri personnalisé
+      - Stream parallèle
+      - Collectors.groupingBy
+      - Collectors.mapping
+      - Collectors.teeing
+      - Exercice : trier et regrouper un dataset complexe
+    - Fonctionnalités modernes et bonnes pratiques
+      - Record avancé
+      - Sealed interface
+      - Immutabilité
+      - Thread-safety
+      - Pattern builder immuable
+      - Garbage Collection tuning
+      - JVM tuning
+      - Exercice : profiler et améliorer la performance d’un code lent
+    - Architecture modulaire
+      - module-info.java
+      - Découpage en modules indépendants
+      - Module core
+      - Module service
+      - Module API
+      - ServiceLoader
+      - Injection de dépendances via ServiceLoader
+      - Exercice : création d’un projet modulaire complet
+  - Programmation concurrente et réactive
+    - Concurrence moderne
+      - CompletableFuture
+      - Chaines d’exécution asynchrone
+      - ForkJoinPool
+      - ExecutorService
+      - synchronized
+      - ReentrantLock
+      - Atomic variables
+      - Exercice : implémenter un pipeline parallèle de calcul
+    - Programmation réactive
+      - Reactive Streams
+      - Backpressure
+      - Project Reactor
+      - RxJava
+      - Observable
+      - map
+      - flatMap
+      - filter
+      - merge
+      - Exercice : créer un système de notifications réactif
+    - Debugging et optimisation
+      - VisualVM
+      - JProfiler
+      - jcmd
+      - jconsole
+      - Java Flight Recorder
+      - Heap dump
+      - Thread dump
+      - Deadlock detection
+      - Exercice : identifier et corriger un deadlock multithreadé
+  - Projet final
+    - Conception du projet
+      - Architecture modulaire
+      - Modules core, service et API
+      - Records
+      - Pattern Matching
+      - Virtual Threads
+      - Structured Concurrency
+      - Design MVC
+      - Architecture hexagonale
+      - Tests unitaires
+    - Implémentation
+      - Gestion concurrente
+      - Gestion réactive
+      - HTTPClient asynchrone
+      - Logs structurés
+      - Monitoring des threads
+      - Exercice : implémenter un service de calcul distribué
+    - Finalisation
+      - Optimisation mémoire
+      - Optimisation CPU
+      - Tests d’intégration
+      - Tests de charge
+      - JUnit 5
+      - Testcontainers
+      - jlink
+      - jpackage
+      - Exercice : livrer une application Java 21 prête à la production
