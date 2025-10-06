@@ -16,6 +16,7 @@ import com.cours.exemple.oop.polymorphism.ReportPrinter;
 import com.cours.exemple.principles.dry.EmailTemplateRegistry;
 import com.cours.exemple.principles.kiss.BudgetCalculator;
 import com.cours.exemple.principles.solid.OrderProcessingDemo;
+import com.cours.exemple.functional.FunctionalProgrammingDemo;
 
 /**
  * Point d'entrée unique permettant d'exécuter chaque scénario.
@@ -31,6 +32,7 @@ public final class DemoRunner {
         runBasics();
         runOop();
         runPrinciples();
+        runFunctional();
     }
 
     public static void runBasics() {
@@ -53,6 +55,12 @@ public final class DemoRunner {
         TransportationShowcase.example();
         NotificationDemo.example();
         ReportPrinter.example();
+        System.out.println();
+    }
+
+    public static void runFunctional() {
+        System.out.println("-- Programmation fonctionnelle & Streams --");
+        FunctionalProgrammingDemo.example();
         System.out.println();
     }
 
