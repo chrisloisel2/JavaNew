@@ -10,7 +10,11 @@ public class ScopedValuesDemo {
     private static final ScopedValue<String> REQUEST_ID = ScopedValue.newInstance();
 
     public String runInScope(String requestId) {
-        return ScopedValue.where(REQUEST_ID, requestId)
-                .call(() -> "Traitement pour " + REQUEST_ID.get());
+        try {
+            return ScopedValue.where(REQUEST_ID, requestId)
+                    .call(() -> "Traitement pour " + REQUEST_ID.get());
+        } catch (Exception e) {
+            throw new IllegalStateException("Impossible d'exécuter le traitement dans la portée", e);
+        }
     }
 }
