@@ -22,6 +22,7 @@ Ce projet Maven regroupe un ensemble de mini-scénarios qui illustrent chaque th
 | `com.cours.exemple.oop.encapsulation` | Encapsulation | Compte bancaire avec contrôles d'accès |
 | `com.cours.exemple.oop.inheritance` | Héritage | Hiérarchie de transports |
 | `com.cours.exemple.oop.polymorphism` | Polymorphisme, surcharge et redéfinition | Impression polymorphe de rapports |
+| `com.cours.exemple.functional` | Programmation fonctionnelle & Streams | Panorama complet des lambdas et de l'API Stream |
 | `com.cours.exemple.oop.interfaces` | Interfaces | Services de notification multi-canaux |
 | `com.cours.exemple.principles.dry` | Principe DRY | Centralisation de modèles d'e-mails |
 | `com.cours.exemple.principles.kiss` | Principe KISS | Calculatrice de budget épurée |
