@@ -12,24 +12,28 @@ var scope = new ScopedValuesDemo();
 scope.runInScope("req-42");
 ```
 
-## Atelier : pipeline urbain asynchrone
+## Ateliers concurrentiels modulaires
 
-Le package `com.example.java21.project` propose un mini-projet complet qui couvre :
+Le package `com.example.java21.workshop` isole chaque notion dans une classe autonome :
 
-- l'orchestration d'appels distants avec `CompletableFuture` et des threads virtuels (`CompletableFutureWorkshop`),
-- l'utilisation de `ProcessHandle` pour observer et superviser des sous-processus,
-- la mise en place de flux réactifs (`SubmissionPublisher`, `Flow.Processor`) avec des tâches asynchrones (`ReactiveWorkshop`).
+| Concept | Classe principale | Points clés Java 9+ |
+| --- | --- | --- |
+| Introduction à `CompletableFuture` | `CompletableFutureIntroduction` | `orTimeout`, `completeOnTimeout`, threads virtuels |
+| Processus & `ProcessHandle` | `ProcessHandleExplorer` | Inspection, supervision et métriques CPU |
+| Parallélisation asynchrone | `AsyncTaskParallelizer` | `CompletableFuture.allOf`, temps limites, exécuteur virtuel |
+| TP `CompletableFuture` complet | `CityAnalyticsApp` | Agrégation de données, `ProcessHandle`, supervision de sous-processus |
+| Flux réactifs (`Flow`) | `ReactiveStreamsIntroduction` | `SubmissionPublisher`, backpressure manuel |
+| Debugging & optimisation | `ConcurrentDebuggingToolkit` | `ThreadMXBean`, timeouts, callbacks `whenComplete` |
+| TP réactif asynchrone | `ReactiveAlertApp` | Chaîne Publisher → Processor → Subscriber, `delayedExecutor` |
 
-### Lancer le pipeline de `CompletableFuture`
+Les classes utilitaires partagées (`WeatherRecord`, `CityReport`, `ComfortIndexProcessor`, etc.) résident dans `com.example.java21.workshop.support`.
+
+### Exécuter un atelier
 
 ```bash
-mvn -pl java21-concurrency -am exec:java -Dexec.mainClass=com.example.java21.project.CompletableFutureWorkshop
+mvn -pl java21-concurrency -am exec:java -Dexec.mainClass=com.example.java21.workshop.CompletableFutureIntroduction
 ```
 
-### Lancer la démo réactive
-
-```bash
-mvn -pl java21-concurrency -am exec:java -Dexec.mainClass=com.example.java21.project.ReactiveWorkshop
-```
+Remplacez `CompletableFutureIntroduction` par la classe souhaitée (`ProcessHandleExplorer`, `AsyncTaskParallelizer`, etc.).
 
 Chaque exemple journalise les threads utilisés, les métriques de performance et les événements réactifs afin de faciliter le debugging et l'optimisation.
