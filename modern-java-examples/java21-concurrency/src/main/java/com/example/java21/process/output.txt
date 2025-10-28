@@ -1,0 +1,5 @@
+total 0
+drwxr-xr-x   4 christopher  staff  128  8 oct 15:17 .
+drwxr-xr-x  10 christopher  staff  320  8 oct 10:37 ..
+-rw-r--r--   1 christopher  staff    0  8 oct 15:17 error.txt
+-rw-r--r--   1 christopher  staff    0  8 oct 15:17 output.txt

@@ -12,6 +12,7 @@ import java.util.Set;
 import java.util.function.BinaryOperator;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.BiFunction;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.Collector;
@@ -42,6 +43,69 @@ public final class FunctionalProgrammingDemo {
 
         List<Auteur> auteurs = auteurs();
 
+
+
+
+		// @FunctionalInterface
+		// public interface Predicate<int> {
+		// 	boolean test(int t);
+		// 	default Predicate<int> and(Predicate<? super int> other);
+		// 	default Predicate<int> negate();
+		// 	default Predicate<int> or(Predicate<? super int> other);
+		// 	static <int> Predicate<int> isEqual(Object targetRef);
+		// 	static <int> Predicate<int> not(Predicate<? super int> target);
+		// }
+
+		public class Dog {
+			String name;
+			int age;
+
+			public Dog(String name, int age) {
+				this.name = name;
+				this.age = age;
+			}
+
+			public String getName() {
+				return name;
+			}
+
+			public int getAge() {
+				return age;
+			}
+		}
+
+		Dog dog1 = new Dog("Buddy", 3);
+
+
+
+
+
+		Predicate<int> f1 =  (a, b) -> a + b;
+		Predicate<int> f2 =  (a, b) -> a * b;
+
+		// Predicate est une fonction qui prends des entrée et retourne un booléen
+		// Function est une fonction qui prends des entrée et retourne un résultat
+		// Consumer est une fonction qui prends des entrée et ne retourne rien (void)
+		// Supplier est une fonction qui ne prends pas d'entrée et retourne un résultat
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         // 1. Utilisation des interfaces fonctionnelles de base ----------------
         System.out.println("1. INTERFACES FONCTIONNELLES DE BASE\n");
         Predicate<Livre> estBestSeller = livre -> livre.exemplairesVendus() > 1_000_000;
@@ -52,7 +116,6 @@ public final class FunctionalProgrammingDemo {
 
         System.out.println("Séparateur : " + separateur.get());
         auteurs.stream()
-                .flatMap(auteur -> auteur.ouvrages().stream())
                 .filter(estBestSeller)
                 .map(titreUpper)
                 .forEach(affiche);
@@ -304,6 +367,72 @@ public final class FunctionalProgrammingDemo {
         }
     }
 
+
+		//Calculatrice fonctionnelle
+
+		int add(int a, int b) {
+			return a + b;
+		}
+
+		int sub(int a, int b) {
+			return a - b;
+		}
+
+		Function<Integer, Integer> addFunction = (a) -> (b) -> a + b;
+
+		Function<Integer, Integer> subFunction = (a) -> (b) -> a - b;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     private record Auteur(String nom, LocalDate dateNaissance, List<Livre> ouvrages, List<Auteur> collaborations) {
+    }
+}
+
+
+public class Example {
+	// public String printYolo(String message) {
+	// 	return "YOLO: " + message;
+	// }
+
+    public static void main(String[] args) {
+
+		// Function<String, String> F1 = Example::printYolo;
+		Map<String, BiFunction<Integer, Integer, Integer>> operations = Map.of(
+			"ADD", (a, b) -> a + b,
+			"SUB", (a, b) -> a - b,
+			"MUL", (a, b) -> a * b,
+			"DIV", (a, b) -> {
+			try {
+				return a / b;
+			} catch (ArithmeticException e) {
+				System.out.println("Erreur : division par zéro");
+				return 0;
+			}
+			}
+		);
+
+        int a = 10, b = 5;
+        String op = "MUL";
+
+        int result = operations.getOrDefault(op, (x, y) -> {
+            throw new IllegalArgumentException("Unknown operation");
+        }).apply(a, b);
+
+        System.out.println("Résultat : " + result);
     }
 }

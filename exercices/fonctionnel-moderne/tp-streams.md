@@ -1,86 +1,104 @@
-# TP : Explorer l'API Stream de Java avec Kickstarter
+# TP — Évolution des Threads en Java (8 → 21+) **avec Reactive Streams**
 
-## Objectifs pédagogiques
-- Manipuler des flux (`Stream`) sur des collections riches.
-- Définir et combiner des `Predicate`, `Function`, `Consumer`, `Supplier` et `Comparator`.
-- Utiliser les opérations intermédiaires et terminales des streams (`map`, `filter`, `sorted`, `distinct`, `flatMap`, `peek`, etc.).
-- Mettre en œuvre les collecteurs (`Collectors`) pour agréger, partitionner et grouper des données.
-- Concevoir un mini-pipeline de traitement fonctionnel lisible, testable et réutilisable.
+## 🎯 Objectifs pédagogiques
 
-## Mise en place
-1. Ouvrez le dossier [`kickstarter`](../../kickstarter) qui contient un jeu de données orienté « crowdfunding ».
-2. Ajoutez le package `com.example.kickstarter` à votre projet (Maven/Gradle/IDEA/Eclipse). Les classes sont prêtes à l'emploi.
-3. Créez une classe de tests (JUnit) ou une classe `main` dédiée (`KickstarterStreamPlayground`) pour réaliser les exercices.
-4. Dans vos solutions, privilégiez les expressions lambda plutôt que les classes anonymes, sauf mention contraire.
+À l’issue du TP, l’étudiant sait :
 
-## Rappel du modèle de données
-- `Project` : campagne Kickstarter (catégorie, pays, dates de lancement/fin, montants, tags, récompenses...).
-- `Backer` : personne qui soutient des projets (pays, intérêts, budget annuel, statut pro).
-- `Reward` : palier de récompense (titre, minimum, stock limité, livraison estimée).
-- `Pledge` : contribution d'un backer à un projet (montant, date, récompense choisie).
-- `KickstarterData` : fournit des collections immuables pré-remplies et des méthodes utilitaires pour créer des flux.
+* différencier **threads natifs**, **executors**, **futures**, **CompletableFuture**, **parallel streams** ;
+* utiliser les nouveautés **Java 21** : **Virtual Threads**, **Structured Concurrency**, **Scoped Values** ;
+* concevoir un **pipeline Reactive Streams** (API `java.util.concurrent.Flow`) avec **backpressure** ;
+* combiner **Virtual Threads** et **Reactive Streams** pour des workloads I/O.
 
-> 💡 Lisez le JavaDoc de chaque classe et explorez les données fournies pour mieux comprendre les attributs disponibles.
+---
 
-## Travaux pratiques
+## 🧰 Prérequis
 
-### 1. Premiers pas avec les flux
-- Écrire un stream qui renvoie les titres des 5 projets qui se terminent le plus rapidement.
-- Utiliser un `Comparator` composé (par `Comparator.comparing`) puis `map(Project::title)`.
-- Ajouter un `peek` pour logger l'identifiant des projets (via un `Consumer<Project>` dédié).
+* JDK **21+** installé (`java -version`)
+* Un IDE ou un simple terminal
+* Ce fichier fourni : `ThreadEvolutionDemo.java` (un seul fichier, une fonction par notion)
 
-### 2. Prédicats réutilisables
-- Créer une classe `ProjectPredicates` contenant des méthodes retournant des `Predicate<Project>` (ex. : `isFunded()`, `isTrending()`, `belongsToCategory(String)`).
-- Mettre en pratique : filtrer les projets financés à plus de 110 % dans la catégorie *Design*.
-- Écrire un test paramétré qui combine les prédicats avec `and` / `or`.
+> Si vous n’avez pas le fichier, demandez-le à l’enseignant ou générez-le depuis la ressource distribuée.
 
-### 3. Fonctions de transformation
-- Construire une `Function<Project, Optional<Reward>>` qui renvoie la récompense la plus accessible (`min` sur `minimumPledge`).
-- À partir de cette fonction, produire la liste des titres des récompenses d'entrée de gamme.
-- Bonus : utilisez `flatMap(Optional::stream)` pour éliminer les projets sans récompense.
+---
 
-### 4. Consumers et Supplier
-- Écrire un `Consumer<Pledge>` qui affiche un reçu formaté (utiliser `String.format`).
-- Créer un `Supplier<Stream<Pledge>>` basé sur `KickstarterData.streamPledges()` permettant de ré-exécuter plusieurs traitements indépendants sans dupliquer le code d'accès aux données.
-- Mettre en place deux traitements :
-  1. Montant total investi par pays des backers.
-  2. Classement des trois projets les plus soutenus par des backers professionnels.
+## ⚙️ Mise en route
 
-### 5. Collectors avancés
-- Grouper les projets par catégorie (`Collectors.groupingBy`) et calculer :
-  - le nombre de projets,
-  - le taux de financement moyen (pledged/goal).
-- Partitionner les backers selon leur statut (`Collectors.partitioningBy(Backer::isProfessional)`).
-- Créer une carte triée (`TreeMap`) qui classe les projets par mois de lancement (`YearMonth`) et par montant total collecté (descending).
+1. **Compiler et exécuter** la démo de base :
 
-### 6. Pipelines complets
-- Construire un pipeline qui enchaîne :
-  1. Sélection des projets financés (`Predicate`).
-  2. Transformation en résumé (`Function<Project, ProjectSummary>` que vous définissez).
-  3. Tri par pourcentage de financement.
-  4. Collecte dans une `LinkedHashMap<String, Double>` (titre → pourcentage) en conservant l'ordre.
-- Implémenter `ProjectSummary` comme un `record`.
-- Prévoir un test qui valide à minima le top 3 attendu (précision ±0,01).
+   ```bash
+   javac ThreadEvolutionDemo.java && java ThreadEvolutionDemo
+   ```
+2. Observer l’ordre d’exécution et les sorties de chaque section.
+3. Créer un **nouveau fichier** `TpSolution.java` que vous remplirez au fil des exercices (ne modifiez pas l’original ; gardez-le comme référence).
 
-### 7. Réduction, statistiques et optionnel
-- Calculer la médiane des montants de promesse (`Pledge.amount()`). (Astuce : trier puis utiliser `skip`/`limit`).
-- Utiliser `Collectors.summarizingDouble` pour produire des statistiques descriptives par catégorie.
-- Écrire une méthode qui renvoie le `Optional<Project>` correspondant au projet ayant reçu une promesse un 1er janvier.
+---
 
-### 8. Bonus créatifs
-- Implémenter une pipeline réutilisable (`Function<Stream<Project>, Stream<Project>>`) qui applique un ensemble de filtres dynamiques.
-- Utiliser un `Predicate` construit à partir d'un fichier de configuration (parsing d'un `Properties`).
-- Expérimenter les `Collector` personnalisés : écrivez un collector qui construit un histogramme (Map plage de montants → nombre de promesses).
+## 🗺️ Plan du TP (progressif)
 
-## Livrables attendus
-- Le code source de vos solutions (tests ou classe `main`).
-- Un court rapport Markdown décrivant les choix réalisés, les points de blocage et les pistes d'amélioration.
-- (Bonus) Un graphique ou tableau synthétique produit via un export CSV/JSON et traité avec un outil externe.
+### Exercice 1 — Threads classiques
 
-## Conseils
-- Commencez simple : utilisez `Stream` directement, puis factorisez vos prédicats/fonctions.
-- Pensez à la lisibilité : nommez vos lambdas ou extraire des méthodes lorsque le pipeline devient long.
-- Utilisez les tests unitaires pour figer des comportements attendus et éviter les régressions.
-- Documentez les cas limites (collections vides, montants nulls) et le comportement choisi.
+**But :** créer, démarrer, joindre un thread ; comprendre la latence due à `sleep()`.
 
-Bon TP ! 🚀
+* Implémentez une méthode `ex1_rawThreads()` qui :
+
+  * crée 3 threads nommés `T-1`, `T-2`, `T-3` ;
+  * chacun « simule » un I/O via `Thread.sleep(200)` puis logge son nom ;
+  * mesure le **temps total**.
+    **Question :** Pourquoi la durée totale est ~200–220 ms et pas 600 ms ?
+
+### Exercice 2 — Executors / Pools
+
+**But :** soumettre des tâches à un pool.
+
+* Implémentez `ex2_executors()` avec `Executors.newFixedThreadPool(2)` ;
+* soumettez 6 tâches `sleep(150)` ;
+* comparez le **makespan** (durée totale) avec 2, puis 4 threads dans le pool.
+
+### Exercice 3 — Callable + Future
+
+**But :** retour de valeur + gestion d’exception.
+
+* Implémentez `ex3_future()` : soumettre 5 `Callable<Integer>` retournant un score ;
+* récupérez les résultats avec `Future#get()` ;
+* gérez `ExecutionException`.
+
+### Exercice 4 — CompletableFuture
+
+**But :** composition asynchrone.
+
+* Implémentez `ex4_completableFuture()` :
+
+  * `supplyAsync` de deux tâches « A » et « B » (200 ms chacune) ;
+  * combinez-les avec `thenCombine` ;
+  * ajoutez `orTimeout` et `exceptionally` ;
+  * logguez le **thread courant** pour chaque étape.
+    **Question :** Que se passe-t-il si vous forcez un timeout à 100 ms ?
+
+### Exercice 5 — Parallel Streams
+
+**But :** paralléliser des opérations sur collections.
+
+* Implémentez `ex5_parallelStreams()` : calculer la somme des carrés `1..N` ;
+* variez `N` (1e5, 1e6) ;
+* comparez `stream()` vs `parallelStream()` et discutez.
+
+### Exercice 6 — Virtual Threads (Java 21)
+
+**But :** découvrir la scalabilité I/O « cheap blocking ».
+
+* Implémentez `ex6_virtualThreads()` avec `Executors.newVirtualThreadPerTaskExecutor()` ;
+* créez **10 000 tâches** qui font `sleep(10)` puis retournent un identifiant ;
+* vérifiez la **stabilité** (pas d’OutOfMemoryError) et la **durée** ;
+* comparez avec un `FixedThreadPool(200)`.
+  **Question :** Pourquoi le modèle tient la charge avec VT ?
+
+### Exercice 7 — Structured Concurrency (Java 21)
+
+**But :** fan-out/fan-in propre + propagation des échecs.
+
+* Implémentez `ex7_structured()` :
+
+  * `ShutdownOnFailure` ; forkez 3 appels : `fetchUser()`, `fetchOrders()`, `fetchNotifications()` ;
+  * introduisez une exception dans l’une des tâches ;
+  * observez `join()`, `throwIfFailed()` et l’annulation des autres.
+

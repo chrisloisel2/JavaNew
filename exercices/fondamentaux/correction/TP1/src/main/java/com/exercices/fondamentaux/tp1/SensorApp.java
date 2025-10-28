@@ -4,9 +4,6 @@ import java.time.Instant;
 import java.util.Locale;
 import java.util.Scanner;
 
-/**
- * Point d'entrée de démonstration pour le TP1.
- */
 public final class SensorApp {
 
     private SensorApp() {

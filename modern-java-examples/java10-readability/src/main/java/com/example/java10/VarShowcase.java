@@ -3,9 +3,6 @@ package com.example.java10;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Montre l'utilisation du mot-clé {@code var} introduit en Java 10.
- */
 public class VarShowcase {
 
     public String formatMessage() {

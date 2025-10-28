@@ -1,0 +1,18 @@
+total 10240
+drwxr-xr-x   17 christopher  staff      544  8 oct 10:39 .
+drwxr-xr-x@ 109 christopher  staff     3488  8 oct 10:39 ..
+drwxr-xr-x   14 christopher  staff      448  6 oct 23:37 .git
+drwxr-xr-x    3 christopher  staff       96  5 oct 22:56 .vscode
+-rw-r--r--    1 christopher  staff   348922  5 oct 22:45 Clean.md
+-rw-r--r--@   1 christopher  staff  4848333  5 oct 22:45 Clean.pdf
+drwxr-xr-x    8 christopher  staff      256  6 oct 10:58 Exemple
+-rw-r--r--    1 christopher  staff     1256  8 oct 09:05 TP.md
+-rw-r--r--@   1 christopher  staff    26911  8 oct 09:43 TP.pdf
+drwxr-xr-x    5 christopher  staff      160  8 oct 10:38 demo
+drwxr-xr-x    7 christopher  staff      224  6 oct 09:20 design-patterns-examples
+-rw-r--r--    1 christopher  staff        0  8 oct 10:39 error.txt
+drwxr-xr-x    9 christopher  staff      288  5 oct 23:09 exercices
+drwxr-xr-x    4 christopher  staff      128  6 oct 13:08 kickstarter
+-rw-r--r--@   1 christopher  staff     4643  5 oct 22:31 mindmap.md
+drwxr-xr-x   10 christopher  staff      320  6 oct 09:20 modern-java-examples
+-rw-r--r--    1 christopher  staff        0  8 oct 10:39 output.txt
